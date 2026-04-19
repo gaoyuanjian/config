@@ -1,0 +1,300 @@
+
+let g:DisableAutoPHPFolding = 1
+
+let python_highlight_all=1
+
+let NERDTreeQuitOnOpen = 0
+set nospell
+
+set shiftwidth=2                " Use indents of 4 spaces
+set tabstop=2                   " An indentation every four columns
+set softtabstop=2               " Let backspace delete indent
+
+" visual 模式下选中文本按 * 搜索
+vnoremap * y/\V<C-R>=escape(@",'/\')<CR><CR>
+
+au BufNewFile,BufRead *.py
+\ set tabstop=4   "tab宽度
+\ set softtabstop=4 
+\ set shiftwidth=4  
+\ set textwidth=79  "行最大宽度
+\ set expandtab       "tab替换为空格键
+\ set autoindent      "自动缩进
+\ set fileformat=unix   "保存文件格式
+
+if has('gui_running')
+    color wombat_btl
+    if has("gui_gtk2")
+        set guifont=Andale\ Mono\ Regular\ 11,Menlo\ Regular\ 10,Consolas\ Regular\ 11,Courier\ New\ Regular\ 13
+    else
+        set guifont=Andale\ Mono\ Regular:h14,Menlo\ Regular:h13,Consolas\ Regular:h14,Courier\ New\ Regular:h16
+    endif
+    if has('gui_macvim')
+        set transparency=2          " Make the window slightly transparent
+    endif
+endif
+
+" ShowMarks {
+    let showmarks_include = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    " Don't leave on by default, use :ShowMarksOn to enable
+    let g:showmarks_enable = 0
+    " For marks a-z
+    highlight ShowMarksHLl gui=bold guibg=LightBlue guifg=Blue
+    " For marks A-Z
+    highlight ShowMarksHLu gui=bold guibg=LightRed guifg=DarkRed
+    " For all other marks
+    highlight ShowMarksHLo gui=bold guibg=LightYellow guifg=DarkYellow
+    " For multiple marks on the same line.
+    highlight ShowMarksHLm gui=bold guibg=LightGreen guifg=DarkGreen
+" }
+set autoread                    " automatically reads, helpful when VCS may have changed the file
+
+" NERDTree {
+    let g:nerdtree_tabs_open_on_gui_startup=0
+    let g:nerdtree_tabs_open_on_new_tab=1
+    let NERDTreeMouseMode=1
+" }
+
+" Make sure escape always takes you out of neocomplettion mode
+    iunmap <expr> <Esc>
+
+" Configure typescript completion
+
+autocmd FileType typescript setlocal balloonexpr=tsuquyomi#balloonexpr()
+autocmd FileType typescript nmap <buffer> <Leader>t : <C-u>echo tsuquyomi#hint()<CR>
+
+set nocompatible
+set completeopt+=menuone
+
+"set rtp+=~/.vim/bundle/neocomplete.vim/
+"set rtp+=~/.vim/bundle/vimproc.vim/
+"set rtp+=~/.cache/neocomplete/tsuquyomi/
+
+filetype plugin indent on
+
+"let g:neocomplete#enable_at_startup = 1
+"if !exists('g:neocomplete#force_omni_input_patterns')
+"    let g:neocomplete#force_omni_input_patterns = {}
+"endif
+"let g:neocomplete#force_omni_input_patterns.typescript = '[^. *\t]\.\w*\|\h\w*::'
+
+
+:nmap <c-j> :exec 'resize '.(winheight(0)-5)<cr>
+:nmap <c-k> :exec 'resize '.(winheight(0)+5)<cr>
+:nmap <c-h> :exec 'vertical resize '.(winwidth(0)-20)<cr>
+:nmap <c-l> :exec 'vertical resize '.(winwidth(0)+20)<cr>
+
+if has("gui_running")
+    au GUIEnter * simalt ~x " 窗口启动时自动最大化
+    set guioptions-=m " 隐藏菜单栏
+    set guioptions-=T " 隐藏工具栏
+    set guioptions-=L " 隐藏左侧滚动条
+    set guioptions-=r " 隐藏右侧滚动条
+    set guioptions-=b " 隐藏底部滚动条
+    "set showtabline=0 " 隐藏Tab栏
+endif
+
+
+"set guifont=Consolas_for_Powerline_FixedD:h11
+"set guifont=Ubuntu_Mono_derivative_Powerlin:h11:cANSI:qDRAFT
+"set guifont=DejaVu_Sans_Mono_for_Powerline:h9:cANSI:qDRAFT
+set guifont=Source_Code_Pro_for_Powerline:h10:cANSI:qDRAFT
+"set renderoptions=type:directx
+set encoding=utf-8
+
+let g:airline_theme = 'powerlineish'
+
+if has('gui_running')
+    let g:airline_powerline_fonts = 1
+else
+    let g:airline_powerline_fonts = 0
+endif
+
+let g:airline#extensions#tabline#enabled = 1 " NOTE: When you open lots of buffers and typing text, it is so slow.
+let g:airline#extensions#tabline#show_buffers = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline#extensions#tabline#fnamemod = ':t'
+
+set termguicolors     " enable true colors support
+"let ayucolor="light"  " for light version of theme
+"let ayucolor="mirage" " for mirage version of theme
+let ayucolor="dark"   " for dark version of theme
+colorscheme ayu
+
+nnoremap <leader>fa :call cscope#findInteractive(expand('<cword>'))<CR>
+nnoremap <leader>fl :call ToggleLocationList()<CR>
+
+" s: Find this C symbol
+nnoremap  <leader>fs :call cscope#find('s', expand('<cword>'))<CR>
+" g: Find this definition
+nnoremap  <leader>fg :call cscope#find('g', expand('<cword>'))<CR>
+" d: Find functions called by this function
+nnoremap  <leader>fd :call cscope#find('d', expand('<cword>'))<CR>
+" c: Find functions calling this function
+nnoremap  <leader>fc :call cscope#find('c', expand('<cword>'))<CR>
+" t: Find this text string
+nnoremap  <leader>ft :call cscope#find('t', expand('<cword>'))<CR>
+" e: Find this egrep pattern
+nnoremap  <leader>fe :call cscope#find('e', expand('<cword>'))<CR>
+" f: Find this file
+nnoremap  <leader>ff :call cscope#find('f', expand('<cword>'))<CR>
+" i: Find files #including this file
+nnoremap  <leader>fi :call cscope#find('i', expand('<cword>'))<CR>
+
+" YouCompleteMe配置
+let g:ycm_error_symbol = '>!'
+let g:ycm_warning_symbol = '>*'
+nnoremap <leader>yd :YcmCompleter GoToDeclaration<CR>
+nnoremap <leader>yf :YcmCompleter GoToDefinition<CR>
+nnoremap <leader>yg :YcmCompleter GoToDefinitionElseDeclaration<CR>
+nmap <F4> :YcmDiags<CR>
+
+let g:ycm_server_python_interpreter="C:/Python35/python.exe"
+let g:ycm_seed_identifiers_with_syntax=1    " 语法关键字补全
+let g:ycm_confirm_extra_conf=0              " 打开vim时不再询问是否加载ycm_extra_conf.py配置
+let g:ycm_key_invoke_completion = '<C-a>'   " ctrl + a 触发补全
+set completeopt=longest,menu
+
+let g:ycm_global_ycm_extra_conf = 'F:/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+
+" nmap <F1> :!ctags --languages=c -R<CR>
+" -q 参数 windows 下需要 msys sort.exe 支持
+
+nmap <F1> :!ctags -R --c-kinds=+p --fields=+S .<CR>
+nmap <F2> :!cscope -Rbkq<CR>
+
+
+" cd e:/work/project/tcm/tcm
+
+" for both ctrlp and NERDTree
+"  set wildignore+=*/node_modules/*,_site,*/__pycache__/,*/venv/*,*/target/*,*/.vim$,\~$,*/.log,*/.aux,*/.cls,*/.aux,*/.bbl,*/.blg,*/.fls,*/.fdb*/,*/.toc,*/.out,*/.glo,*/.log,*/.ist,*/.fdb_latexmk
+
+set wildignore+=*tags*,cscope.*
+
+let g:Lf_GtagsAutoGenerate = 1
+let $GTAGSLABEL = 'native-pygments'
+let $GTAGSCONF = 'D:/tools/glo663wb/share/gtags/gtags.conf'
+
+nnoremap <C-C>m :Leaderf mru<CR>
+nnoremap <C-C>g :Leaderf gtags<CR>
+nnoremap <C-C>r :Leaderf rg<CR>
+nnoremap <C-C>b :Leaderf buffer<CR>
+
+noremap <leader>lr :<C-U><C-R>=printf("Leaderf! gtags -r %s --auto-jump", expand("<cword>"))<CR><CR>
+noremap <leader>ld :<C-U><C-R>=printf("Leaderf! gtags -d %s --auto-jump", expand("<cword>"))<CR><CR>
+noremap <leader>lo :<C-U><C-R>=printf("Leaderf! gtags --recall %s", "")<CR><CR>
+noremap <leader>ln :<C-U><C-R>=printf("Leaderf gtags --next %s", "")<CR><CR>
+noremap <leader>lp :<C-U><C-R>=printf("Leaderf gtags --previous %s", "")<CR><CR>
+noremap <leader>lt :<C-U><C-R>=printf("Leaderf! rg -e %s ", expand("<cword>"))<CR><CR>
+let g:Lf_ShortcutF = '<C-P>'
+
+" cscope
+" set cscopetag                  " 使用 cscope 作为 tags 命令
+" set cscopeprg='gtags-cscope'   " 使用 gtags-cscope 代替 cscope
+
+" gtags
+let GtagsCscope_Auto_Load = 1
+let GtagsCscope_Quiet = 1
+let CtagsCscope_Auto_Map = 1
+
+" easyjjjjkkkkkj
+let g:EasyMotion_smartcase = 1
+"let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
+map <Leader><leader>h <Plug>(easymotion-linebackward)
+map <Leader><Leader>j <Plug>(easymotion-j)
+map <Leader><Leader>k <Plug>(easymotion-k)
+map <Leader><leader>l <Plug>(easymotion-lineforward)
+" 重复上一次操作, 类似repeat插件, 很强大
+map <Leader><leader>. <Plug>(easymotion-repeat)
+
+"---auto-format
+" 需要安装 clang
+noremap <F3> :Autoformat<CR>
+
+let g:formatdef_google = '"clang-format -style=file -sort-includes=0"'
+"let g:formatdef_google = '"clang-format -style=google -sort-includes=0"'
+
+let g:formatters_cpp = ['google']
+let g:formatters_c = ['google']
+
+" 需要安装 yapf `pip install yapf`
+let g:formatter_yapf_style = 'pep8'
+
+
+"---python-mode
+"开启警告
+let g:pymode_warnings = 0
+"保存文件时自动删除无用空格
+let g:pymode_trim_whitespaces = 1
+let g:pymode_options = 1
+"显示允许的最大长度的列
+let g:pymode_options_colorcolumn = 1
+"设置QuickFix窗口的最大，最小高度
+let g:pymode_quickfix_minheight = 3
+let g:pymode_quickfix_maxheight = 10
+"使用python3
+let g:pymode_python = 'python3'
+"使用PEP8风格的缩进
+let g:pymode_indent = 1
+"取消代码折叠
+let g:pymode_folding = 0
+"开启python-mode定义的移动方式
+let g:pymode_motion = 1
+"启用python-mode内置的python文档，使用K进行查找
+let g:pymode_doc = 1
+let g:pymode_doc_bind = 'K'
+"自动检测并启用virtualenv
+let g:pymode_virtualenv = 1
+let g:pymode_virtualenv_path = "venv"
+"不使用python-mode运行python代码
+"let g:pymode_run = 0
+let g:pymode_run_bind = '<C-d>r'
+"不使用python-mode设置断点
+let g:pymode_breakpoint = 0
+"let g:pymode_breakpoint_bind = '<leader>b'
+"启用python语法检查
+let g:pymode_lint = 1
+"修改后保存时进行检查
+let g:pymode_lint_on_write = 0
+"编辑时进行检查
+let g:pymode_lint_on_fly = 0
+let g:pymode_lint_checkers = ['pyflakes', 'pep8']
+"发现错误时不自动打开QuickFix窗口
+let g:pymode_lint_cwindow = 0
+"侧边栏不显示python-mode相关的标志
+" let g:pymode_lint_signs = 0
+let g:pymode_lint_todo_symbol = 'WW'
+let g:pymode_lint_comment_symbol = 'CC'
+let g:pymode_lint_visual_symbol = 'RR'
+let g:pymode_lint_error_symbol = 'EE'
+let g:pymode_lint_info_symbol = 'II'
+let g:pymode_lint_pyflakes_symbol = 'FF'
+"启用重构
+let g:pymode_rope = 1
+"不在父目录下查找.ropeproject，能提升响应速度
+let g:pymode_rope_lookup_project = 0
+"光标下单词查阅文档
+let g:pymode_rope_show_doc_bind = '<C-d>d'
+"项目修改后重新生成缓存
+let g:pymode_rope_regenerate_on_write = 1
+"开启补全，并设置<C-Tab>为默认快捷键
+let g:pymode_rope_completion = 1
+let g:pymode_rope_complete_on_dot = 1
+let g:pymode_rope_completion_bind = '<C-Tab>'
+"<C-c>g跳转到定义处，同时新建竖直窗口打开
+let g:pymode_rope_goto_definition_bind = '<C-d>g'
+let g:pymode_rope_goto_definition_cmd = 'vnew'
+"重命名光标下的函数，方法，变量及类名
+let g:pymode_rope_rename_bind = '<C-d>rf'
+"重命名光标下的模块或包
+let g:pymode_rope_rename_module_bind = '<C-d>rp'
+"开启python所有的语法高亮
+let g:pymode_syntax = 1
+let g:pymode_syntax_all = 1
+"高亮缩进错误
+let g:pymode_syntax_indent_errors = g:pymode_syntax_all
+"高亮空格错误
+let g:pymode_syntax_space_errors = g:pymode_syntax_all
+
+" vim-surround
+let g:surround_indent = 0

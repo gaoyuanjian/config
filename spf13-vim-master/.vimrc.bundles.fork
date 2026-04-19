@@ -1,0 +1,38 @@
+if !exists("g:tax_override_snippets")
+    " Snippets
+    Bundle 'taxilian/snipmate-snippets'
+    Bundle 'bloveridge/Jasmine-snippets-for-snipMate'
+endif
+
+" Color schemes
+    Bundle 'taxilian/Wombat'
+    Bundle 'taxilian/herald.vim'
+
+" Programming
+    Bundle 'taxilian/a.vim.git'
+    if !exists("g:tax_disable_showmarks")
+        " Bundle 'ShowMarks'
+    endif
+
+    Bundle 'Shougo/vimproc.vim'
+    Bundle 'Shougo/unite.vim'
+    Bundle 'Shougo/unite-outline'
+    Bundle 'jason0x43/vim-js-indent'
+    Bundle 'leafgarland/typescript-vim'
+    Bundle 'Quramy/tsuquyomi'
+
+Bundle 'ayu-theme/ayu-vim'
+Bundle "cscope.vim"
+Bundle "dkprice/vim-easygrep"
+Bundle 'Yggdroot/LeaderF'
+Bundle 'joereynolds/gtags-scope'
+Bundle 'airblade/vim-gitgutter'
+Bundle 'gregsexton/gitv'
+Bundle 'junegunn/gv.vim'
+
+Bundle 'xdg/vim-darkluma'
+Bundle 'kien/rainbow_parentheses.vim'
+Bundle 'tmhedberg/SimpylFold'
+Bundle 'nvie/vim-flake8'
+Bundle 'mbbill/code_complete'
+Bundle 'Chiel92/vim-autoformat'

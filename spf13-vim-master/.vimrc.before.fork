@@ -1,0 +1,19 @@
+
+if !exists("g:spf13_leader")
+    let g:spf13_leader = '\'
+endif
+let g:spf13_no_autochdir = 1
+let g:spf13_no_fastTabs = 1
+let g:spf13_no_keyfixes = 1
+let g:spf13_no_views = 1
+let g:spf13_noninvasive_completion = 1
+let g:spf13_no_conceal = 1
+
+" let g:spf13_bundle_groups=['general', 'writing', 'neocomplete', 'programming', 'php', 'ruby', 'python', 'javascript', 'html', 'misc', "youcompleteme", ]
+
+let g:spf13_bundle_groups=['general', 'writing', 'neocomplete', 'programming', 'python',  'misc']
+
+let g:spf13_override_snippets = 1
+let g:spf13_use_powerline = 0
+
+let g:spf13_no_neosnippet_expand = 1
